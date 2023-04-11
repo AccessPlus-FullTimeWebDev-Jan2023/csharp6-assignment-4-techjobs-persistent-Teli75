@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-var connectionString = "server=locatlhost;user=TechJobs;password=TechJobs;database=database";
+var connectionString = "server=localhost;user=TechJobs;password=TechJobs;database=techjobs";
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 32));
 
 // Add services to the container.

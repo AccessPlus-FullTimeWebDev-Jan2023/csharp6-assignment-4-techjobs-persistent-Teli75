@@ -31,6 +31,9 @@ namespace TechJobs6Persistent.Controllers
 
         public IActionResult Add()
         {
+            AddJobViewModel addJobViewMmodel = new AddJobViewModel(List<Employer> newEmployers);
+
+
             return View();
         }
 
