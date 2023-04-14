@@ -28,21 +28,36 @@ namespace TechJobs6Persistent.Controllers
 
             return View(jobs);
         }
-
-        public IActionResult Add()
+        public IActionResult Add(int id)
         {
-            AddJobViewModel addJobViewMmodel = new AddJobViewModel(List<Employer> newEmployers);
+            //1. this method contains a list of employer objects pulled from SQL
+            Job theJob = context.Jobs.Find(id);
+            List<Employer> possibleEmployers = context.Employers.ToList();
 
+            //2. this method creates an instance of AddJobViewModel
+            AddJobViewModel viewModel = new AddJobViewModel(theJob, possibleEmployers);
 
-            return View();
+            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult ProcessAddJobForm()
+        public IActionResult Add(AddJobViewModel viewModel)
         {
-            return View();
-        }
+            if (ModelState.IsValid)
+            {
+                Employer theEmployer = context.Employers.Find(viewModel.EmployerId);
+                Job newJob = new Job
+                {
+                    Name = viewModel.Name,
+                    Employer = theEmployer,
+                };
 
+                context.Jobs.Add(newJob);
+                context.SaveChanges();
+                return Redirect("/Job");
+            }
+            return View(viewModel);
+        }
         public IActionResult Delete()
         {
             ViewBag.jobs = context.Jobs.ToList();
@@ -66,12 +81,14 @@ namespace TechJobs6Persistent.Controllers
 
         public IActionResult Detail(int id)
         {
-            Job theJob = context.Jobs.Include(j => j.Employer).Include(j => j.Skills).Single(j => j.Id == id);
+            Job theJob = context.Jobs
+                .Include(j => j.Employer)
+                .Include(j => j.Skills)
+                .Single(j => j.Id == id);
 
             JobDetailViewModel jobDetailViewModel = new JobDetailViewModel(theJob);
 
             return View(jobDetailViewModel);
-
         }
     }
 }

@@ -60,7 +60,7 @@ namespace TechJobs6Persistent.Controllers
             return View(addSkillViewModel);
         }
 
-        [HttpPost]
+        [HttpPost] //adds skills to job
         public IActionResult AddJob(AddSkillViewModel addSkillViewModel)
         {
             if (ModelState.IsValid)

@@ -8,17 +8,16 @@ namespace TechJobs6Persistent.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public Employer Employer { get; set; }
         public int EmployerId { get; set; }
-
+        public Employer Employer { get; set; }
+        
         public ICollection<Skill>? Skills { get; set; }
 
         public Job(string name)
-        {
+        {S
             Name = name;
             Skills = new List<Skill>();
         }
-
         public Job()
         {
         }
