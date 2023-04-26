@@ -14,7 +14,7 @@ namespace TechJobs6Persistent.Models
         public ICollection<Skill>? Skills { get; set; }
 
         public Job(string name)
-        {S
+        {
             Name = name;
             Skills = new List<Skill>();
         }
